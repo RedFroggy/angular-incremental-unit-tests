@@ -1,0 +1,3 @@
+export enum FileTypeEnum {
+  COMPONENT, DIRECTIVE, MODULE, SERVICE, TEST_FILE, OTHER
+}

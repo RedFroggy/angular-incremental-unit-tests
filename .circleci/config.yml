@@ -1,0 +1,43 @@
+version: 2 # use CircleCI 2.0
+
+job_defaults: &job_defaults
+  docker:
+    - image: circleci/node:12-browsers
+
+cache_key: &cache_key angular-incremental-tests-deps-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
+jobs:
+  install:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run: npm ci
+      - run: npm run build
+      - save_cache:
+          key: *cache_key
+          paths:
+            - node_modules
+            - dist
+
+  release:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+      - run: npm run release
+
+workflows:
+  version: 2
+  build-test-release:
+    jobs:
+      - install
+      - release:
+          requires:
+            - install
+          filters:
+            branches:
+              only: master

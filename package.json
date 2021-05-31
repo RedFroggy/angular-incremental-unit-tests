@@ -1,0 +1,48 @@
+{
+  "name": "angular-incremental-tests",
+  "version": "0.0.0-development",
+  "description": "Angular incremental unit tests based on git changes",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "rimraf dist/src && tsc --project tsconfig.json",
+    "test": "npm run compile && node src/index",
+    "prerelease": "cp package.json dist/src",
+    "release": "npm run prerelease && semantic-release"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "glob": "7.1.7",
+    "simple-git": "2.38.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "12.1.1",
+    "@commitlint/config-conventional": "12.1.1",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/github": "7.2.3",
+    "@semantic-release/gitlab": "6.0.9",
+    "@types/node": "8.10.66",
+    "rimraf": "3.0.2",
+    "semantic-release": "17.4.3",
+    "typescript": "4.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/red-froggy/open-source/angular-incremental-unit-tests.git"
+  },
+  "incrementalTests": {
+    "ignoredFilesPatterns": [
+      ".md",
+      ".eslint*",
+      "*.json",
+      "!package.json",
+      "!package-lock.json",
+      ".mustache",
+      "*.js"
+    ],
+    "rootDir": "src/app",
+    "testCommand": "npm run test"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,35 @@
+default:
+  image: node:14
+  tags:
+    - aws
+
+stages:
+  - build
+  - release
+
+build:
+  stage: build
+  only:
+    - master
+  script:
+    - npm ci
+    - npm run build
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+      - dist/
+
+release:
+  stage: release
+  only:
+    - master
+  script:
+    - npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+    - npm run release
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+      - dist/
+    policy: pull
