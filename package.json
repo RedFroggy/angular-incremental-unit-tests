@@ -9,7 +9,6 @@
     "prerelease": "cp package.json dist/src",
     "release": "npm run prerelease && semantic-release"
   },
-  "license": "MIT",
   "dependencies": {
     "glob": "7.1.7",
     "simple-git": "2.38.1"
@@ -24,10 +23,6 @@
     "rimraf": "3.0.2",
     "semantic-release": "17.4.3",
     "typescript": "4.1.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/red-froggy/open-source/angular-incremental-unit-tests.git"
   },
   "incrementalTests": {
     "ignoredFilesPatterns": [
@@ -44,5 +39,19 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/RedFroggy/incremental-unit-tests/issues"
+  },
+  "keywords": [
+    "angular",
+    "incremental",
+    "unit tests",
+    "red froggy"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RedFroggy/incremental-unit-tests.git"
   }
 }
